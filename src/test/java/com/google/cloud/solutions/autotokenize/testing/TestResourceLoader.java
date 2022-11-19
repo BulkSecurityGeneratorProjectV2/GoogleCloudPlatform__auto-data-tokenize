@@ -37,6 +37,7 @@ import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -125,7 +126,7 @@ public interface TestResourceLoader {
 
     public CopyActions copyTo(File folder) {
       return resourcePath -> {
-        var outputFile = File.createTempFile("temp_", "", folder);
+        var outputFile = Files.createTempFile(folder.toPath(), "temp_", "").toFile();
 
         long copiedBytes =
             Files.asByteSink(outputFile)
